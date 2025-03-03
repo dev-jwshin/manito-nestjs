@@ -7,6 +7,7 @@ import { ConfigurationModule } from './config/config.module';
 import { SessionModule } from './session/session.module';
 import { EnvConfigService } from './config/env.config';
 import { AuthModule } from './api/v1/auth/auth.module';
+import { UsersModule } from './api/v1/users/users.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AuthModule } from './api/v1/auth/auth.module';
     }),
     SessionModule.register(),
     AuthModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],
