@@ -16,10 +16,8 @@ async function bootstrap() {
 
   console.log(`애플리케이션 환경: ${configService.nodeEnv}`);
   console.log(`애플리케이션 이름: ${configService.appName}`);
-  console.log(`TEST1 값: ${configService.test1}`);
-  console.log(`TEST2 값: ${configService.test2}`);
 
-  await app.listen(port);
+  await app.listen(port || 3000);
   console.log(`애플리케이션이 http://localhost:${port} 에서 실행 중입니다.`);
 }
 

@@ -20,6 +20,4 @@ export default () => ({
     port: parseInt(process.env.REDIS_PORT || '6379', 10),
     password: process.env.REDIS_PASSWORD || '',
   },
-  test1: process.env.TEST1 || '기본값',
-  test2: process.env.TEST2 || '기본값',
 });

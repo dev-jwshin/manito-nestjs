@@ -22,68 +22,59 @@ export class EnvConfigService {
   }
 
   // 앱 설정
-  get appName(): string {
-    return this.configService.get<string>('appName') || 'NestJS 애플리케이션';
+  get appName(): string | undefined {
+    return this.configService.get<string>('appName');
   }
 
-  get port(): number {
-    return this.configService.get<number>('port') || 3000;
+  get port(): number | undefined {
+    return this.configService.get<number>('port');
   }
 
   // 데이터베이스 설정
-  get databaseHost(): string {
-    return this.configService.get<string>('database.host') || 'localhost';
+  get databaseHost(): string | undefined {
+    return this.configService.get<string>('database.host');
   }
 
-  get databasePort(): number {
-    return this.configService.get<number>('database.port') || 5432;
+  get databasePort(): number | undefined {
+    return this.configService.get<number>('database.port');
   }
 
-  get databaseUsername(): string {
-    return this.configService.get<string>('database.username') || 'postgres';
+  get databaseUsername(): string | undefined {
+    return this.configService.get<string>('database.username');
   }
 
-  get databasePassword(): string {
-    return this.configService.get<string>('database.password') || '';
+  get databasePassword(): string | undefined {
+    return this.configService.get<string>('database.password');
   }
 
-  get databaseName(): string {
-    return this.configService.get<string>('database.name') || 'nestjs_db';
+  get databaseName(): string | undefined {
+    return this.configService.get<string>('database.name');
   }
 
   // JWT 설정
-  get jwtSecret(): string {
-    return this.configService.get<string>('jwt.secret') || 'default_secret_key';
+  get jwtSecret(): string | undefined {
+    return this.configService.get<string>('jwt.secret');
   }
 
   // 세션 설정
-  get sessionSecret(): string {
-    return this.configService.get<string>('session.secret') || 'default_session_secret';
+  get sessionSecret(): string | undefined {
+    return this.configService.get<string>('session.secret');
   }
 
-  get sessionMaxAge(): number {
-    return this.configService.get<number>('session.maxAge') || 86400000;
+  get sessionMaxAge(): number | undefined {
+    return this.configService.get<number>('session.maxAge');
   }
 
   // Redis 설정
-  get redisHost(): string {
-    return this.configService.get<string>('redis.host') || 'localhost';
+  get redisHost(): string | undefined {
+    return this.configService.get<string>('redis.host');
   }
 
-  get redisPort(): number {
-    return this.configService.get<number>('redis.port') || 6379;
+  get redisPort(): number | undefined {
+    return this.configService.get<number>('redis.port');
   }
 
-  get redisPassword(): string {
-    return this.configService.get<string>('redis.password') || '';
-  }
-
-  // 테스트 값
-  get test1(): string {
-    return this.configService.get<string>('test1') || '기본값';
-  }
-
-  get test2(): string {
-    return this.configService.get<string>('test2') || '기본값';
+  get redisPassword(): string | undefined {
+    return this.configService.get<string>('redis.password');
   }
 }
