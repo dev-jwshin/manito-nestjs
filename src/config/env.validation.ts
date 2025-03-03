@@ -1,9 +1,7 @@
 import * as Joi from 'joi';
 
 export const validationSchema = Joi.object({
-  NODE_ENV: Joi.string()
-    .valid('development', 'production', 'test', 'local')
-    .default('development'),
+  NODE_ENV: Joi.string().valid('development', 'production', 'test', 'local').default('development'),
   PORT: Joi.number().default(3000),
   APP_NAME: Joi.string().default('NestJS 애플리케이션'),
   DATABASE_HOST: Joi.string().required(),

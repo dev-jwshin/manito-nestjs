@@ -58,10 +58,7 @@ export class EnvConfigService {
 
   // 세션 설정
   get sessionSecret(): string {
-    return (
-      this.configService.get<string>('session.secret') ||
-      'default_session_secret'
-    );
+    return this.configService.get<string>('session.secret') || 'default_session_secret';
   }
 
   get sessionMaxAge(): number {

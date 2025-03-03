@@ -6,7 +6,6 @@ import { RedisStore } from 'connect-redis';
 
 @Injectable()
 export class SessionService {
-  // eslint-disable-next-line no-unused-vars
   constructor(private readonly configService: EnvConfigService) {}
 
   /**
