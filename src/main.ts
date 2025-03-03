@@ -22,4 +22,5 @@ async function bootstrap() {
   await app.listen(port);
   console.log(`애플리케이션이 http://localhost:${port} 에서 실행 중입니다.`);
 }
-bootstrap();
+
+void bootstrap();
