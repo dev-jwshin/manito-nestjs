@@ -1,1 +1,1 @@
-export * from './session-auth.guard';
+export * from './auth.guard';
