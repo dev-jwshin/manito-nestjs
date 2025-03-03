@@ -8,6 +8,8 @@ import { SessionModule } from './session/session.module';
 import { EnvConfigService } from './config/env.config';
 import { AuthModule } from './api/v1/auth/auth.module';
 import { UsersModule } from './api/v1/users/users.module';
+import { PostsModule } from './api/v1/posts/posts.module';
+import { QueryParserModule } from './common/query-parser/query-parser.module';
 
 @Module({
   imports: [
@@ -34,8 +36,10 @@ import { UsersModule } from './api/v1/users/users.module';
       }),
     }),
     SessionModule.register(),
+    QueryParserModule,
     AuthModule,
     UsersModule,
+    PostsModule,
   ],
   controllers: [],
   providers: [],
