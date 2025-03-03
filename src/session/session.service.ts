@@ -16,11 +16,11 @@ export class SessionService {
   getSessionOptions(): session.SessionOptions {
     const isProduction = this.configService.isProduction;
     const sessionOptions: session.SessionOptions = {
-      secret: this.configService.sessionSecret,
+      secret: this.configService.sessionSecret || 'my_session_secret',
       resave: false,
       saveUninitialized: false,
       cookie: {
-        maxAge: this.configService.sessionMaxAge,
+        maxAge: this.configService.sessionMaxAge || 86400000,
         httpOnly: true,
         secure: isProduction, // HTTPS를 사용하는 경우에만 true로 설정
       },
@@ -30,8 +30,8 @@ export class SessionService {
       try {
         // 운영 환경에서는 Redis 스토어 사용
         const redisClient = new Redis({
-          host: this.configService.redisHost,
-          port: this.configService.redisPort,
+          host: this.configService.redisHost || 'localhost',
+          port: this.configService.redisPort || 6379,
           password: this.configService.redisPassword || undefined,
         });
 
