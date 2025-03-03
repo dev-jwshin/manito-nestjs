@@ -32,7 +32,6 @@ import { EnvConfigService } from './config/env.config';
       }),
     }),
     SessionModule.register(),
-    // 여기에 다른 모듈들을 추가하세요
   ],
   controllers: [],
   providers: [],
