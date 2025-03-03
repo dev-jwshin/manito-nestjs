@@ -6,6 +6,7 @@ import { validationSchema } from './config/env.validation';
 import { ConfigurationModule } from './config/config.module';
 import { SessionModule } from './session/session.module';
 import { EnvConfigService } from './config/env.config';
+import { AuthModule } from './api/v1/auth/auth.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { EnvConfigService } from './config/env.config';
       }),
     }),
     SessionModule.register(),
+    AuthModule,
   ],
   controllers: [],
   providers: [],

@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { EnvConfigService } from './config/env.config';
 import { SessionService } from './session/session.service';
+import { ValidationPipe } from '@nestjs/common';
 import * as session from 'express-session';
 
 async function bootstrap() {
@@ -10,6 +11,15 @@ async function bootstrap() {
   const configService = app.get(EnvConfigService);
   const sessionService = app.get(SessionService);
   const port = configService.port || 3000;
+
+  // 유효성 검증 파이프 설정
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   // 세션 미들웨어 설정
   app.use(session(sessionService.getSessionOptions()));
