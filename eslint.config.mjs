@@ -40,7 +40,7 @@ export default tseslint.config(
       '@typescript-eslint/no-misused-promises': 'warn',
       'prefer-const': 'warn',
       'no-console': 'off',
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
     },
   },
