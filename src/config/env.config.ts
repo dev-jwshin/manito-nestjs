@@ -56,6 +56,31 @@ export class EnvConfigService {
     return this.configService.get<string>('jwt.secret') || 'default_secret_key';
   }
 
+  // 세션 설정
+  get sessionSecret(): string {
+    return (
+      this.configService.get<string>('session.secret') ||
+      'default_session_secret'
+    );
+  }
+
+  get sessionMaxAge(): number {
+    return this.configService.get<number>('session.maxAge') || 86400000;
+  }
+
+  // Redis 설정
+  get redisHost(): string {
+    return this.configService.get<string>('redis.host') || 'localhost';
+  }
+
+  get redisPort(): number {
+    return this.configService.get<number>('redis.port') || 6379;
+  }
+
+  get redisPassword(): string {
+    return this.configService.get<string>('redis.password') || '';
+  }
+
   // 테스트 값
   get test1(): string {
     return this.configService.get<string>('test1') || '기본값';
