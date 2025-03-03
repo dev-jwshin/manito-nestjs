@@ -1,4 +1,10 @@
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
+import {
+  CallHandler,
+  ExecutionContext,
+  Injectable,
+  NestInterceptor,
+  Optional,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { ALLOWED_FILTERS_KEY } from '../decorators/allowed-filters.decorator';
@@ -9,10 +15,14 @@ import { QueryParser } from '../services/query-parser.service';
 
 @Injectable()
 export class QueryParserInterceptor implements NestInterceptor {
+  private reflector: Reflector;
+
   constructor(
-    private readonly reflector: Reflector,
+    @Optional() reflector: Reflector,
     private readonly queryParser: QueryParser,
-  ) {}
+  ) {
+    this.reflector = reflector || new Reflector();
+  }
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();

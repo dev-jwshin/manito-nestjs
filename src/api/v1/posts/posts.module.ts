@@ -2,13 +2,23 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Post } from './post.entity';
 import { PostsController } from './posts.controller';
-import { CreateService } from '../../../common/base';
+import { DynamicServiceFactory } from '../../../common/base/dynamic-service.factory';
+import { getDataSourceToken, getRepositoryToken } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Post])],
   controllers: [PostsController],
-  providers: [],
-  exports: [],
+  providers: [
+    {
+      provide: 'PostsService',
+      inject: [getRepositoryToken(Post)],
+      useFactory: repository => {
+        const ServiceClass = DynamicServiceFactory.create(Post);
+        return new ServiceClass(repository);
+      },
+    },
+  ],
+  exports: ['PostsService'],
 })
-@CreateService(Post, 'PostsService')
 export class PostsModule {}

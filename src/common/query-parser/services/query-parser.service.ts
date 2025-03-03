@@ -24,7 +24,18 @@ export class QueryParser {
     allowedIncludes: string[] | null,
     paginationOptions: PaginationOptions,
   ): ParsedQuery {
-    const filters = this.parseFilters(query.filter || {}, allowedFilters);
+    // filter[name] 형식의 쿼리 파라미터 처리
+    const filterObj: Record<string, any> = {};
+
+    for (const key in query) {
+      const match = key.match(/^filter\[(.*?)\]$/);
+      if (match && match[1]) {
+        const fieldName = match[1];
+        filterObj[fieldName] = query[key];
+      }
+    }
+
+    const filters = this.parseFilters(filterObj, allowedFilters);
     const includes = this.parseIncludes(query.include, allowedIncludes);
     const pagination = this.parsePagination(query, paginationOptions);
 
@@ -135,8 +146,8 @@ export class QueryParser {
   private parsePagination(query: any, options: PaginationOptions): ParsedPagination {
     const page = query.page ? parseInt(query.page, 10) : options.defaultPage || 1;
 
-    const perPage = query.per
-      ? Math.min(parseInt(query.per, 10), options.maxPerPage || 100)
+    const perPage = query.perPage
+      ? Math.min(parseInt(query.perPage, 10), options.maxPerPage || 100)
       : options.defaultPerPage || 10;
 
     return {
@@ -156,7 +167,14 @@ export class QueryParser {
     const where: Record<string, any> = {};
 
     for (const filter of filters) {
-      where[filter.field] = filter.value;
+      // 문자열 "true" 또는 "false"를 boolean 값으로 변환
+      if (filter.value === 'true' || filter.value === true) {
+        where[filter.field] = true;
+      } else if (filter.value === 'false' || filter.value === false) {
+        where[filter.field] = false;
+      } else {
+        where[filter.field] = filter.value;
+      }
     }
 
     return where as FindOptionsWhere<T>;

@@ -9,7 +9,7 @@ export const validationSchema = Joi.object({
   DATABASE_USERNAME: Joi.string(),
   DATABASE_PASSWORD: Joi.string().required(),
   DATABASE_NAME: Joi.string().required(),
-  JWT_SECRET: Joi.string().required(),
+  JWT_SECRET: Joi.string(),
   SESSION_SECRET: Joi.string().required(),
   SESSION_MAX_AGE: Joi.number(),
   REDIS_HOST: Joi.string(),

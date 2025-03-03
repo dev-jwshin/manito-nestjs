@@ -39,22 +39,13 @@ export class SessionService {
           console.error('Redis 연결 오류:', err);
         });
 
-        redisClient.on('connect', () => {
-          console.log('Redis 서버에 연결되었습니다.');
-        });
-
         sessionOptions.store = new RedisStore({ client: redisClient });
-        console.log('Redis 세션 스토어가 설정되었습니다.');
       } catch (error) {
         console.error(
           'Redis 스토어 설정 중 오류 발생:',
           error instanceof Error ? error.message : String(error),
         );
-        console.log('대체 메모리 스토어를 사용합니다.');
       }
-    } else {
-      // 개발/테스트 환경에서는 메모리 스토어 사용 (기본값)
-      console.log('메모리 세션 스토어가 설정되었습니다.');
     }
 
     return sessionOptions;

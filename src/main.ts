@@ -4,6 +4,9 @@ import { EnvConfigService } from './config/env.config';
 import { SessionService } from './session/session.service';
 import { ValidationPipe } from '@nestjs/common';
 import * as session from 'express-session';
+import { QueryParserInterceptor } from './common/query-parser/interceptors/query-parser.interceptor';
+import { QueryParser } from './common/query-parser/services/query-parser.service';
+import { Reflector } from '@nestjs/core';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,14 +24,15 @@ async function bootstrap() {
     }),
   );
 
+  // 쿼리 파서 인터셉터 설정
+  const queryParser = app.get(QueryParser);
+  const reflector = new Reflector();
+  app.useGlobalInterceptors(new QueryParserInterceptor(reflector, queryParser));
+
   // 세션 미들웨어 설정
   app.use(session(sessionService.getSessionOptions()));
 
-  console.log(`애플리케이션 환경: ${configService.nodeEnv}`);
-  console.log(`애플리케이션 이름: ${configService.appName || '마니또'}`);
-
   await app.listen(port);
-  console.log(`애플리케이션이 http://localhost:${port} 에서 실행 중입니다.`);
 }
 
 void bootstrap();
